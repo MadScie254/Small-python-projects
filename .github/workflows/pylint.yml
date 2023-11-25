@@ -1,23 +1,38 @@
-name: Pylint
+# pylint configuration file
 
-on: [push]
+# Specify the maximum number of characters on a single line
+max-line-length=120
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10"]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pylint
-    - name: Analysing the code with pylint
-      run: |
-        pylint $(git ls-files '*.py')
+# Enable or disable messages or categories of messages
+disable:
+  - C0114  # Missing module docstring
+  - C0115  # Missing class docstring
+  - C0116  # Missing function or method docstring
+
+# Specify additional builtins
+# (Add any built-ins your code uses regularly to avoid false positives)
+generated-members=REQUEST_METHOD
+
+# Enable/Disable certain messages
+enable=unused-import,unused-variable
+
+# Specify the output format (text, parseable, colorized, json, etc.)
+output-format=text
+
+# Add files or directories to whitelist or blacklist
+# whitelist_externals=foo,bar
+ignore=tests
+
+# Specify additional directories to look for Python modules
+init-hook='import sys; sys.path.append("/path/to/your/modules")'
+
+# Specify which plugins should be enabled
+plugins=pylint_django
+
+# Django-specific configuration (if applicable)
+[MASTER]
+django=1
+
+[MESSAGES CONTROL]
+# Disable some Django-specific messages
+disable=fixme
