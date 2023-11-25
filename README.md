@@ -46,6 +46,13 @@ The "English Word Random Generator" is a Python script designed to generate Engl
 ```bash
 python EnglishWordRandomGenerator.py
 Enter random letters: abcde
+
+Generated words:
+abed
+bade
+bead
+...
+
 ```
 - 
 - `snippet2/`: Folder containing snippet 2 files.
